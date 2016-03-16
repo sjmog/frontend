@@ -9,15 +9,19 @@ angular.module('makersBnb.index', ['ngRoute'])
   });
 }])
 
-.controller('SpacesCtrl', ['$scope', function($scope) {
+.controller('SpacesCtrl', ['$scope', '$http', function($scope, $http) {
   // real getSpaces() function
-  // this.getSpaces = function() {
-  //   // make an HTTP request to the API for all spaces
-  // };
-  
   this.getSpaces = function() {
-    return [{id: 1, name: "My lovely space"}, {id: 2, name: "My horrible space"}];
+    $http.get("http://localhost:3000/spaces.json")
+      .then(function(response){ 
+        $scope.spaces = response.data; 
+      });
   };
+
+  // mock getSpaces() function
+  // this.getSpaces = function() {
+  //   return [{id: 1, name: "My lovely space"}, {id: 2, name: "My horrible space"}];
+  // };
 
   $scope.spaces = this.getSpaces();
 }]);
